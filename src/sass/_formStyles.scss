@@ -1,6 +1,6 @@
 .form-section {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 
   background: linear-gradient(
     45deg,
@@ -10,6 +10,9 @@
   );
 
   border-bottom: 1px solid gray;
+
+  position: sticky;
+  top: 0px;
 }
 
 .search-form-container {

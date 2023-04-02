@@ -6,7 +6,8 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1230px;
+  min-height: 790px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 15px;
@@ -68,4 +69,49 @@
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
   margin: -1px;
+}
+
+.photo-card {
+  width: 280px;
+  height: 350px;
+  padding: 10px;
+
+  background-color: rgb(255, 249, 249);
+  border: 2px solid lightgray;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  transition: box-shadow 200ms linear;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 4px 7px 15px 1px rgba(117, 117, 117, 1);
+  }
+}
+
+.gallery__item {
+  font-style: normal;
+  text-decoration: none;
+  color: black;
+}
+
+.photo-card img {
+  width: 250px;
+  max-height: 150px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.info p {
+  margin: 0;
+  font-size: 15px;
 }
