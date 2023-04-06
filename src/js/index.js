@@ -106,10 +106,6 @@ loadMoreButton.addEventListener('click', event => {
 
   i++;
   searchPhotos(formInputEl.value, i);
-
-  setTimeout(() => {
-    scroll();
-  }, 100);
 });
 
 searchButtonEl.addEventListener('click', event => {
@@ -124,10 +120,3 @@ searchButtonEl.addEventListener('click', event => {
     searchPhotos(formInputEl.value.trim(), i);
   }
 });
-
-function scroll() {
-  window.scrollBy({
-    top: 350 * 2,
-    behavior: 'smooth',
-  });
-}
