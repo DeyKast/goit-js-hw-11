@@ -1,11 +1,9 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { Report } from 'notiflix/build/notiflix-report-aio';
 
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const axios = require('axios').default;
-
 const API_KEY = '34954973-fc5c2eab35e9f140062a5ec5a';
 
 const formInputEl = document.querySelector('.form-input');
@@ -21,11 +19,10 @@ let i = 1;
 let hits = 0;
 let totalHits = 0;
 
-Report.failure(
-  'WARNING !',
-  'Доброго дня !) Подивіться будь ласка я вам писав коментар до 9 Д/З та повідомлення у слаку на рахунок проблеми яка у мене виникла. А в даній домашці додаткове завдання не доробив бо не вистачило часу, пробував зробити функціонал SimpleLightBox, але він чомусь не коректно працює, буду радий якщо підкажете в чому проблема.',
-  'Thanks'
-);
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionDelay: 250,
+  /* options */
+});
 
 async function searchPhotos(inputValue, i) {
   try {
@@ -52,9 +49,24 @@ async function searchPhotos(inputValue, i) {
 
       console.log(response);
 
+      if (results.length < 40) {
+        loadMoreButton.classList.add('visually-hidden');
+      }
+
+      if (hits >= totalHits) {
+        Notify.info(
+          `We're sorry, but you've reached the end of search results.`
+        );
+        loadMoreButton.classList.add('visually-hidden');
+      } else {
+        loadMoreButton.classList.remove('visually-hidden');
+      }
+
       createMarkup(results);
     }
+
     galleryMarkup.innerHTML += photosMarkup;
+    lightbox.refresh();
   } catch (error) {
     console.error(error);
   }
@@ -92,14 +104,12 @@ function createMarkup(results) {
 loadMoreButton.addEventListener('click', event => {
   event.preventDefault();
 
-  if (hits >= totalHits) {
-    Notify.info(`We're sorry, but you've reached the end of search results.`);
-    loadMoreButton.classList.add('visually-hidden');
-    return;
-  } else {
-    i++;
-    searchPhotos(formInputEl.value, i);
-  }
+  i++;
+  searchPhotos(formInputEl.value, i);
+
+  setTimeout(() => {
+    scroll();
+  }, 100);
 });
 
 searchButtonEl.addEventListener('click', event => {
@@ -115,8 +125,9 @@ searchButtonEl.addEventListener('click', event => {
   }
 });
 
-const lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-  /* options */
-});
+function scroll() {
+  window.scrollBy({
+    top: 350 * 2,
+    behavior: 'smooth',
+  });
+}
